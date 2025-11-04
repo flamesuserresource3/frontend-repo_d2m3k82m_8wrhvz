@@ -52,27 +52,36 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ delay: idx * 0.05 }}
-              className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.03] p-6 overflow-hidden"
+              className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.03] p-6 overflow-hidden will-change-transform"
             >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              >
                 <div className="pointer-events-none absolute -inset-20 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.15),transparent_60%)]" />
-              </div>
+              </motion.div>
 
-              <h3 className="text-white font-semibold text-lg">{p.title}</h3>
-              <p className="mt-2 text-white/70 text-sm">{p.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="text-xs px-2 py-1 rounded-full bg-white/10 text-white/80">{t}</span>
-                ))}
-              </div>
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ type: 'spring', stiffness: 250, damping: 20 }}
+              >
+                <h3 className="text-white font-semibold text-lg">{p.title}</h3>
+                <p className="mt-2 text-white/70 text-sm">{p.description}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span key={t} className="text-xs px-2 py-1 rounded-full bg-white/10 text-white/80">{t}</span>
+                  ))}
+                </div>
 
-              <div className="mt-6 flex items-center gap-3">
-                {p.links.map((l) => (
-                  <a key={l.label} href={l.href} className="inline-flex items-center gap-2 text-cyan-300 hover:text-cyan-200">
-                    <l.icon className="w-4 h-4" /> {l.label}
-                  </a>
-                ))}
-              </div>
+                <div className="mt-6 flex items-center gap-3">
+                  {p.links.map((l) => (
+                    <a key={l.label} href={l.href} className="inline-flex items-center gap-2 text-cyan-300 hover:text-cyan-200">
+                      <l.icon className="w-4 h-4" /> {l.label}
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
             </motion.article>
           ))}
         </div>
